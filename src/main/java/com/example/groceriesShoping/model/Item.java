@@ -1,8 +1,10 @@
 package com.example.groceriesShoping.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Item {
 
     @Id
