@@ -1,7 +1,6 @@
 package com.example.groceriesShoping.controller;
 
 import com.example.groceriesShoping.dto.UserDto;
-import com.example.groceriesShoping.model.Item;
 import com.example.groceriesShoping.model.User;
 import com.example.groceriesShoping.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/users")
 public class UserController {
     private final UserService userService;
@@ -49,8 +49,7 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
-    @DeleteMapping
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         User us=userService.findById(id);
         if(us!=null){
