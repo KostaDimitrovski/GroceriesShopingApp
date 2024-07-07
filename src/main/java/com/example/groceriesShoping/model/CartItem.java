@@ -1,40 +1,34 @@
 package com.example.groceriesShoping.model;
 
-
-import com.example.groceriesShoping.enums.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
-@Table(name = "users")
 @Data
-public class User {
+@Entity
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private String phone;
-    private String address;
-    private String email;
-    private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    //, cascade = CascadeType.ALL, fetch = FetchType.LAZY
-    @OneToOne(mappedBy = "user")
+    private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
     @JsonBackReference
     private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        CartItem cartItem = (CartItem) o;
 
-        return id != null ? id.equals(user.id) : user.id == null;
+        return id != null ? id.equals(cartItem.id) : cartItem.id == null;
     }
 
     @Override
