@@ -8,5 +8,6 @@ public class CompanyDto {
     private String companyAddress;
     private String companyPhone;
     private String companyEmail;
+    private String location;
 
 }

@@ -8,10 +8,9 @@ import lombok.Data;
         private Long id;
         private String name;
         private String description;
-        private Long price;
-        private int quantity;
+        private Double price;
         private String discount;
-        private String homeAddress;
+        private Long volume;
         private Long companyId;
 
     }

@@ -35,13 +35,17 @@ public class ItemServiceImpl implements ItemService {
         Item item = new Item();
         item.setName(itemDto.getName());
         item.setPrice(itemDto.getPrice());
-        item.setQuantity(itemDto.getQuantity());
-        item.setCompany(companyRepository.findById(itemDto.getCompanyId()).orElseThrow());
+        Company company=companyRepository.findById(itemDto.getCompanyId()).orElseThrow();
+        item.setCompany(company);
         item.setDescription(itemDto.getDescription());
         item.setDiscount(itemDto.getDiscount());
-        item.setHomeAddress(itemDto.getHomeAddress());
-
-        return itemRepository.save(item);
+        item.setVolume(itemDto.getVolume());
+        itemRepository.save(item);
+        List<Item> items=company.getItems();
+        items.add(item);
+        company.setItems(items);
+        companyRepository.save(company);
+        return item;
     }
 
     @Override
@@ -49,11 +53,9 @@ public class ItemServiceImpl implements ItemService {
         Item item = findItemById(id);
         item.setName(itemDto.getName());
         item.setPrice(itemDto.getPrice());
-        item.setQuantity(itemDto.getQuantity());
         item.setCompany(companyRepository.findById(itemDto.getCompanyId()).orElseThrow());
         item.setDescription(itemDto.getDescription());
         item.setDiscount(itemDto.getDiscount());
-        item.setHomeAddress(itemDto.getHomeAddress());
 
         return itemRepository.save(item);
     }
