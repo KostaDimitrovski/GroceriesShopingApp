@@ -5,19 +5,24 @@ import com.example.groceriesShoping.model.Company;
 import com.example.groceriesShoping.model.Item;
 import com.example.groceriesShoping.repository.CompanyRepository;
 import com.example.groceriesShoping.repository.ItemRepository;
+import com.example.groceriesShoping.service.FileService;
 import com.example.groceriesShoping.service.ItemService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final CompanyRepository companyRepository;
+    private final FileService fileService;
 
-    public ItemServiceImpl(ItemRepository itemRepository, CompanyRepository companyRepository) {
+    public ItemServiceImpl(ItemRepository itemRepository, CompanyRepository companyRepository, FileService fileService) {
         this.itemRepository = itemRepository;
         this.companyRepository = companyRepository;
+        this.fileService = fileService;
     }
 
     @Override
@@ -31,8 +36,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item createItem(ItemDto itemDto) {
+    public Item createItem(ItemDto itemDto, MultipartFile file) throws IOException {
         Item item = new Item();
+        String uploadImage = fileService.uploadImageToFileSystem(file);
+//        byte[] imageData=fileService.downloadImageFromFileSystem(uploadImage);
+        item.setPictureUrl(uploadImage);
         item.setName(itemDto.getName());
         item.setPrice(itemDto.getPrice());
         Company company=companyRepository.findById(itemDto.getCompanyId()).orElseThrow();
