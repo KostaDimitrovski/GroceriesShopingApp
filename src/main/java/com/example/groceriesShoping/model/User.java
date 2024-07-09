@@ -27,6 +27,10 @@ public class User {
     @JsonBackReference
     private Cart cart;
 
+    @OneToOne(mappedBy = "user")
+    @JsonBackReference
+    private Wishlist wishlist;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
