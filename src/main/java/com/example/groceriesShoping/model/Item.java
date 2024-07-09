@@ -19,6 +19,7 @@ public class Item {
     private Double price;
     private String discount;
     private Long volume;
+    private String pictureUrl;
     @ManyToOne
     @JoinColumn(name = "company_id")
     @JsonIgnoreProperties("items")

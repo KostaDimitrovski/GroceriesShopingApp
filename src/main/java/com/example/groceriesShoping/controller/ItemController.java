@@ -5,7 +5,9 @@ import com.example.groceriesShoping.model.Item;
 import com.example.groceriesShoping.service.ItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -35,8 +37,8 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Item> addItem(@RequestBody ItemDto item) {
-        Item item1= itemService.createItem(item);
+    public ResponseEntity<Item> addItem(@RequestPart("item") ItemDto item, @RequestPart("image") MultipartFile file) throws IOException {
+        Item item1= itemService.createItem(item,file);
         if(item1==null) {
             return ResponseEntity.notFound().build();
         }
