@@ -22,7 +22,7 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<CartItem> cartItems = new ArrayList<>();
+    private List<CartProduct> cartProducts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

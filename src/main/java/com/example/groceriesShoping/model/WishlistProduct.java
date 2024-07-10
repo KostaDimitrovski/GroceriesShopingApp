@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class WishItem {
+public class WishlistProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +18,17 @@ public class WishItem {
     private Wishlist wishlist;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        WishItem wishItem = (WishItem) o;
+        WishlistProduct wishlistProduct = (WishlistProduct) o;
 
-        return id != null ? id.equals(wishItem.id) : wishItem.id == null;
+        return id != null ? id.equals(wishlistProduct.id) : wishlistProduct.id == null;
     }
 
     @Override

@@ -15,8 +15,8 @@ public class WishlistController {
     }
 
     @PostMapping("/{userId}/add")
-    public Wishlist addItemToWishlist(@PathVariable Long userId, @RequestParam Long itemId) {
-        return wishlistService.addItemToWishlist(userId,itemId);
+    public Wishlist addProductToWishlist(@PathVariable Long userId, @RequestParam Long productId) {
+        return wishlistService.addProductToWishlist(userId, productId);
     }
 
     @GetMapping("/user/{id}")

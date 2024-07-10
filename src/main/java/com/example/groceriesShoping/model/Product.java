@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Item {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Item {
     private String pictureUrl;
     @ManyToOne
     @JoinColumn(name = "company_id")
-    @JsonIgnoreProperties("items")
+    @JsonIgnoreProperties("products")
     private Company company;
 
     @Override
@@ -30,9 +30,9 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Item item = (Item) o;
+        Product product = (Product) o;
 
-        return id != null ? id.equals(item.id) : item.id == null;
+        return id != null ? id.equals(product.id) : product.id == null;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class Item {
         return id != null ? id.hashCode() : 0;
     }
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private List<CartItem> cartItems;
+    private List<CartProduct> cartProducts;
 
 }

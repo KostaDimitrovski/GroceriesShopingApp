@@ -20,7 +20,7 @@ public class Wishlist {
     private User user;
     @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<WishItem> wishItems = new ArrayList<>();
+    private List<WishlistProduct> wishlistProducts = new ArrayList<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

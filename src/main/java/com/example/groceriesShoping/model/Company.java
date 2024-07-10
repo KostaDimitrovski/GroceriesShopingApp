@@ -18,7 +18,7 @@ public class Company {
     private String email;
     private String location;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> items = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

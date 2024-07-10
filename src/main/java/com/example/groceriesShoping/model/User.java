@@ -23,11 +23,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     //, cascade = CascadeType.ALL, fetch = FetchType.LAZY
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonBackReference
     private Cart cart;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonBackReference
     private Wishlist wishlist;
 
