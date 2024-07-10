@@ -13,8 +13,8 @@ public class CartController {
         this.cartService = cartService;
     }
     @PostMapping("/{userId}/add")
-    public Cart addItemToCart(@PathVariable Long userId, @RequestParam Long itemId, @RequestParam int quantity) {
-        return cartService.addItemToCart(userId, itemId, quantity);
+    public Cart addProductToCart(@PathVariable Long userId, @RequestParam Long productId, @RequestParam int quantity) {
+        return cartService.addProductToCart(userId, productId, quantity);
     }
     @GetMapping("/user/{id}")
     public Cart getCartByUserId(@PathVariable Long id) {

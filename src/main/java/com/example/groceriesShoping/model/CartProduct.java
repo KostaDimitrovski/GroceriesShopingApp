@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class CartItem {
+public class CartProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,17 +18,17 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CartItem cartItem = (CartItem) o;
+        CartProduct cartProduct = (CartProduct) o;
 
-        return id != null ? id.equals(cartItem.id) : cartItem.id == null;
+        return id != null ? id.equals(cartProduct.id) : cartProduct.id == null;
     }
 
     @Override

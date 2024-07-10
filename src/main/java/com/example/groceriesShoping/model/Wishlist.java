@@ -10,28 +10,25 @@ import java.util.List;
 
 @Entity
 @Data
-public class Cart {
+public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonManagedReference
     private User user;
-
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<CartProduct> cartProducts = new ArrayList<>();
-
+    private List<WishlistProduct> wishlistProducts = new ArrayList<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cart cart = (Cart) o;
+        Wishlist wishlist = (Wishlist) o;
 
-        return id != null ? id.equals(cart.id) : cart.id == null;
+        return id != null ? id.equals(wishlist.id) : wishlist.id == null;
     }
 
     @Override
@@ -40,4 +37,3 @@ public class Cart {
     }
 
 }
-

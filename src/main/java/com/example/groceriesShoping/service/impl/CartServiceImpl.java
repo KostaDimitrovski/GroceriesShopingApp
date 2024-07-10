@@ -1,12 +1,12 @@
 package com.example.groceriesShoping.service.impl;
 
 import com.example.groceriesShoping.model.Cart;
-import com.example.groceriesShoping.model.CartItem;
-import com.example.groceriesShoping.model.Item;
+import com.example.groceriesShoping.model.CartProduct;
+import com.example.groceriesShoping.model.Product;
 import com.example.groceriesShoping.model.User;
-import com.example.groceriesShoping.repository.CartItemRepository;
+import com.example.groceriesShoping.repository.CartProductRepository;
 import com.example.groceriesShoping.repository.CartRepository;
-import com.example.groceriesShoping.repository.ItemRepository;
+import com.example.groceriesShoping.repository.ProductRepository;
 import com.example.groceriesShoping.repository.UserRepository;
 import com.example.groceriesShoping.service.CartService;
 import org.springframework.stereotype.Service;
@@ -16,28 +16,28 @@ import java.util.Optional;
 @Service
 public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
-    private final ItemRepository itemRepository;
+    private final CartProductRepository cartProductRepository;
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    public CartServiceImpl(CartRepository cartRepository, CartItemRepository cartItemRepository, ItemRepository itemRepository, UserRepository userRepository) {
+    public CartServiceImpl(CartRepository cartRepository, CartProductRepository cartProductRepository, ProductRepository productRepository, UserRepository userRepository) {
         this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.itemRepository = itemRepository;
+        this.cartProductRepository = cartProductRepository;
+        this.productRepository = productRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    public Cart addItemToCart(Long userId, Long itemId, int quantity) {
+    public Cart addProductToCart(Long userId, Long productId, int quantity) {
         Optional<User> userOpt = userRepository.findById(userId);
-        Optional<Item> itemOpt = itemRepository.findById(itemId);
+        Optional<Product> productOpt = productRepository.findById(productId);
 
-        if (userOpt.isEmpty() || itemOpt.isEmpty()) {
-            throw new RuntimeException("User or Item not found");
+        if (userOpt.isEmpty() || productOpt.isEmpty()) {
+            throw new RuntimeException("User or Product not found");
         }
 
         User user = userOpt.get();
-        Item item = itemOpt.get();
+        Product product = productOpt.get();
         Cart cart = user.getCart();
 
         if (cart == null) {
@@ -46,24 +46,24 @@ public class CartServiceImpl implements CartService {
             user.setCart(cart);
         }
 
-        Optional<CartItem> cartItemOpt = cart.getCartItems().stream()
-                .filter(ci -> ci.getItem().getId().equals(itemId))
+        Optional<CartProduct> cartProductOpt = cart.getCartProducts().stream()
+                .filter(ci -> ci.getProduct().getId().equals(productId))
                 .findFirst();
 
-        CartItem cartItem;
-        if (cartItemOpt.isPresent()) {
-            cartItem = cartItemOpt.get();
-            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        CartProduct cartProduct;
+        if (cartProductOpt.isPresent()) {
+            cartProduct = cartProductOpt.get();
+            cartProduct.setQuantity(cartProduct.getQuantity() + quantity);
         } else {
-            cartItem = new CartItem();
-            cartItem.setCart(cart);
-            cartItem.setItem(item);
-            cartItem.setQuantity(quantity);
-            cart.getCartItems().add(cartItem);
+            cartProduct = new CartProduct();
+            cartProduct.setCart(cart);
+            cartProduct.setProduct(product);
+            cartProduct.setQuantity(quantity);
+            cart.getCartProducts().add(cartProduct);
         }
 
         cartRepository.save(cart);
-        cartItemRepository.save(cartItem);
+        cartProductRepository.save(cartProduct);
 
         return cart;
     }
