@@ -40,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         String uploadImage = fileService.uploadImageToFileSystem(file);
 //        byte[] imageData=fileService.downloadImageFromFileSystem(uploadImage);
+        product.setType(productDto.getType());
         product.setPictureUrl(uploadImage);
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());

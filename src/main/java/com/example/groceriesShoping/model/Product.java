@@ -1,5 +1,6 @@
 package com.example.groceriesShoping.model;
 
+import com.example.groceriesShoping.enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -43,5 +44,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<CartProduct> cartProducts;
+
+    private ProductType type;
 
 }
