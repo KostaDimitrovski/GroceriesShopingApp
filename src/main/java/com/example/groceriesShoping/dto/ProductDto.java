@@ -1,5 +1,6 @@
 package com.example.groceriesShoping.dto;
 
+import com.example.groceriesShoping.enums.ProductType;
 import lombok.Data;
 
     @Data
@@ -11,5 +12,5 @@ import lombok.Data;
         private String discount;
         private Long volume;
         private Long companyId;
-
+        private ProductType type;
     }
